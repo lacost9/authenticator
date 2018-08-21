@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>co.com.bancodebogota.digitalizacion</groupId>
+	<artifactId>authenticator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>authenticator</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<proxy.build.name>authenticator-proxy</proxy.build.name>
+		<java.version>1.8</java.version>
+	</properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>src/main/java/</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>src/main/resources/wsdl/WebServiceLdapPpe.wsdl</wsdl>
+									<wsdlLocation>/wsdl/WebServiceLdapPpe.wsdl</wsdlLocation>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jfrog.buildinfo</groupId>
+				<artifactId>artifactory-maven-plugin</artifactId>
+				<version>2.4.1</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>build-info</id>
+						<phase>package</phase>
+						<goals>
+							<goal>publish</goal>
+						</goals>
+						<configuration>
+							<deployProperties>
+								<gradle>awesome</gradle>
+							</deployProperties>
+							<artifactory>
+								<includeEnvVars>true</includeEnvVars>
+								<timeoutSec>60</timeoutSec>
+								<propertiesFile>publish.properties</propertiesFile>
+							</artifactory>
+							<publisher>
+								<contextUrl>https://bancodebogota.jfrog.io/bancodebogota</contextUrl>
+								<username>${username}</username>
+								<password>${password}</password>
+								<excludePatterns></excludePatterns>
+								<repoKey>maven-releases</repoKey>
+								<snapshotRepoKey>maven-snapshots</snapshotRepoKey>
+							</publisher>
+							<buildInfo>
+								<buildName>customer-card-pin-proxy</buildName>
+								<buildNumber>${buildNumber}</buildNumber>
+								<buildUrl>${buildUrl}</buildUrl>
+							</buildInfo>
+							<licenses>
+								<autoDiscover>true</autoDiscover>
+								<includePublishedArtifacts>false</includePublishedArtifacts>
+								<runChecks>true</runChecks>
+								<scopes>compile,runtime</scopes>
+								<violationRecipients>lpicon@bancodebogota.com.co</violationRecipients>
+							</licenses>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
