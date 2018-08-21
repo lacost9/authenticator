@@ -13,11 +13,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<proxy.build.name>authenticator-proxy</proxy.build.name>
 		<java.version>1.8</java.version>
 	</properties>
-
 
 	<build>
 		<plugins>
@@ -33,8 +31,8 @@
 							<sourceRoot>src/main/java/</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>src/main/resources/wsdl/WebServiceLdapPpe.wsdl</wsdl>
-									<wsdlLocation>/wsdl/WebServiceLdapPpe.wsdl</wsdlLocation>
+									<wsdl>src/main/resources/wsdl/WebServiceLdapPpe_1.wsdl</wsdl>
+									<wsdlLocation>/wsdl/WebServiceLdapPpe_1.wsdl</wsdlLocation>
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
@@ -93,5 +91,15 @@
 		</plugins>
 	</build>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray-plugins</name>
+			<url>https://bancodebogota.jfrog.io/bancodebogota/maven-public/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
